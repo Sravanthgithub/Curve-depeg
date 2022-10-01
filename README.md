@@ -1,7 +1,7 @@
 # Curve-depeg
 Predictive modelling of depegging on Cuve.fi.
 
-# Curve and the virtual price
+## Curve and the virtual price
 
 The price of token at the stableswap [Curve.fi](https://curve.fi/) is calculated by the the equation below.
 
@@ -35,10 +35,16 @@ Changing the number of tokens and/or A changes the shape of the curve which in t
 ![Token ratio and A](https://github.com/knasterk/Curve-depeg/blob/main/fig/curves_A-tokRatio.png "The effect of token ratio and the A parameter")
 <!-- <img src="[https://github.com/knasterk/Curve-depeg/blob/main/fig/curves_A-tokRatio.png]" width="100" /> -->
 
-The more extreme the ratio of the two tokens become the more the price deviates from 1. This can be counteracted by increasing A, which leads to a greater range of ratios with a price close to 1, but sharper drop-offs at the end of this range.
+The more extreme the ratio of the two tokens become the more the price deviates from 1. This can be counteracted by increasing A, which leads to a greater range of ratios with a price close to 1, but sharper drop-offs at the end of this range. This is shown over a greater range of token ratios and values for A in the figure below.
 
 ![The region of stable price](https://github.com/knasterk/Curve-depeg/blob/main/fig/A-tokRatio_vprice.png "Higher A leads to a wider region of stable prices but a sharper drop-off")
 <!-- <img src="[https://github.com/knasterk/Curve-depeg/blob/main/fig/A-tokRatio_vprice.png]" width="200" /> -->
+
+In the figure above, the red line indicates the border between peg (0.5 \geq $price_{x_1}$ \leq 1) and depeg ($< 0.95$).
+
+## Predicting depeg
+
+We want to predict
 
 ## Use
 Paths are relative to the working directory.
