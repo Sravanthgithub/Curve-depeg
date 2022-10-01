@@ -40,11 +40,11 @@ The more extreme the ratio of the two tokens become the more the price deviates 
 ![The region of stable price](https://github.com/knasterk/Curve-depeg/blob/main/fig/A-tokRatio_vprice.png "Higher A leads to a wider region of stable prices but a sharper drop-off")
 <!-- <img src="[https://github.com/knasterk/Curve-depeg/blob/main/fig/A-tokRatio_vprice.png]" width="200" /> -->
 
-In the figure above, the red line indicates the border between peg ( $0.95 \geq price_{x_1} \leq 1$) and depeg ( $< 0.95$).
+In the figure above, the red line indicates the border between peg ( $0.95 \geq price_{x_1} \leq 1$) and depeg ( $price_{x_1}< 0.95$).
 
 ## Predicting depeg
 
-We want to predict depegs ( $price_{tok_1} < 0.95$ or $price_{tok_1} > 1.05$) 24 hours in advance.
+We want to predict depegs ( $price_{x_1} < 0.95$ or $price_{x_1} > 1.05$) 24 hours in advance.
 
 ## Use
 Paths are relative to the working directory.
