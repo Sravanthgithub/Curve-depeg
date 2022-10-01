@@ -65,56 +65,121 @@ def sort_results(results):
     return best, sorted_results
 
 
-def get_D(x_1, y_1, A):
+def get_D(A_contract, x1, y1):
     """
-    """
-    D_1 = 1 / (3 * 2 ** (1/3))
-    D_2 = 432 * A * y_1 * x_1 ** 2 + 432 * A * x_1 * y_1 ** 2
-    D_3 = np.sqrt(np.float64(6912 * (4 * A - 1) ** 3 * x_1 ** 3 * y_1 ** 3 +
-                  (432 * A * (x_1 ** 2) * y_1 + 432 * A * x_1 * y_1 ** 2) ** 2))
+    Arguments
+    ---------
+    A_contract
+    x1
+    y1
 
-    D_4 = 4 * 2 ** (1/3) * (4 * A - 1) * x_1 * y_1
+    Returns
+    -------
+
+
+    From: https://www.desmos.com/calculator/mbocz299dv
+    """
+    A = A_contract / 2
+    D_1 = 1 / (3 * 2 ** (1/3))
+    D_2 = 432 * A * y1 * x1 ** 2 + 432 * A * x1 * y1 ** 2
+    D_3 = np.sqrt(np.float64(6912 * (4 * A - 1) ** 3 * x1 ** 3 * y1 ** 3 +
+                  (432 * A * (x1 ** 2) * y1 + 432 * A * x1 * y1 ** 2) ** 2))
+
+    D_4 = 4 * 2 ** (1/3) * (4 * A - 1) * x1 * y1
     D = D_1 * (D_2 + D_3) ** (1/3) - D_4 / ((D_2 + D_3) ** (1/3))
 
     return D
 
 
-def get_dy_curve(x, A, D):
+def get_dy_curve(A_contract, x1, y1):
     """
+    Arguments
+    ---------
+    A_contract
+    x1
+    y1
+
+    Returns
+    -------
+    dy_curve
+
+    From: https://www.desmos.com/calculator/mbocz299dv
     """
+    A = A_contract / 2
+    s = get_D(A_contract, x1, y1) / 2
 
-    s = D/2
-    dy_curve_nom = (1 - 4 * A) * s * x**2 - \
-        x * np.sqrt(x * (2 * A * x + s) * (2 * A * (x - 2 * s)**2 + s * x)) + \
-        2 * A * x**3 - 2 * s**3
+    dy_curve_nom = (1 - 4 * A) * s * x1**2 - x1 * \
+        np.sqrt(x1 * (2 * A * x1 + s) * (2 * A * (x1 - 2 * s)**2 + s * x1)) + \
+        2 * A * x1 ** 3 - 2 * s ** 3
 
-    dy_curve_denom = 2 * x * np.sqrt(x * (2 * A * x + s) *
-                                     (2 * A * (x - 2 * s)**2 + s * x))
+    dy_curve_denom = 2 * x1 * np.sqrt(x1 * (2 * A * x1 + s) *
+                                      (2 * A * (x1 - 2 * s)**2 + s * x1))
 
     return dy_curve_nom / dy_curve_denom
 
 
-def get_virtualprice(A_contract, x_1, y_1):
+def get_virtualprice(A_contract, x1, y1):
     """
-    https://www.desmos.com/calculator/mbocz299dv
+    Arguments
+    ---------
+    A_contract
+    x1
+    y1
 
+    Returns
+    -------
+    vprice
+
+    From: https://www.desmos.com/calculator/mbocz299dv
+    """
+    vprice = - get_dy_curve(A_contract, x1, y1)
+
+    return vprice
+
+
+def get_y(x, A_contract, x1, y1):
+    """
     """
     A = A_contract / 2
+    s = get_D(A_contract, x1, y1) / 2
+    term1 = - x / 2
+    term2 = - s / (4 * A)
+    term3 = s
+    term4a = np.float64(2 * A * x ** 2 + s * x - 4 * A * s * x) ** 2
+    term4b = np.float64(8 * A * x * s ** 3)
+    term4c = np.float64(4 * A * x)
+    term4 = np.sqrt(term4a + term4b) / term4c
+    y = term1 + term2 + term3 + term4
 
-    D = get_D(x_1, y_1, A)
-    price = - get_dy_curve(x_1, A, D)
-
-    return price
+    return y
 
 
-# def get_y_curve(x, D, A):
-#     """
-#     x_1 : amount of coin x
-#     y_1 : amount of coint y
-#     """
-#
-#     s = D/2
-#     y_curve = -x/2 - s/(4*A) + s
-#     y_curve += np.sqrt((2*A*x**2 + s*x - 4*A*s*x)**2 + 8*A*x*s**3) / 4*A*x
-#
-#     return y_curve
+def get_y_curve(A_contract, x1, y1):
+    """
+    Argmuents
+    ---------
+    A_contract : Amplification parameter
+    x1 : amount of coin x in the pool
+    y1 : amount of coin y the pool
+
+    Returns
+    -------
+    xs : The x values where y_curve is is defined.
+    y_curve :
+
+    From: https://www.desmos.com/calculator/mbocz299dv
+    """
+    xs = np.linspace(0.001, max(x1, 10**8), 100000)
+
+    A = A_contract / 2
+    s = get_D(A_contract, x1, y1) / 2
+    term1 = - xs / 2
+    term2 = - s / (4 * A)
+    term3 = s
+    term4a = np.float64(2 * A * xs ** 2 + s * xs - 4 * A * s * xs) ** 2
+    term4b = np.float64(8 * A * xs * s ** 3)
+    term4c = np.float64(4 * A * xs)
+    term4 = np.sqrt(term4a + term4b) / term4c
+    y_curve = term1 + term2 + term3 + term4
+
+    return xs, y_curve
