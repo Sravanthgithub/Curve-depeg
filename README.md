@@ -8,7 +8,7 @@ The price of token at the stableswap [Curve.fi](https://curve.fi/) is calculated
 $$  A = \frac{A_{contract}}{2} $$
 
     D_1 = 1 / (3 * 2 ** (1/3))
-$$  D_1 = \frac{1}{3 \cdot 2 \sqrt[3]} $$
+$$  D_1 = \frac{1}{3 \cdot \sqrt[3](2)} $$
 $$  D_2 = 432 A y_1 {x_1}^2 + 432 A x_1 {y_1}^2 $$
 
     D_3 = \sqrt(6912 * (4 A - 1)^3 * x_1^3 * y_1^3 + (432 A * x_1^2 * y1 + 432 * A * x1 * y1 ** 2) ** 2)
