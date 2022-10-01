@@ -23,7 +23,7 @@ $$ s = \frac{D}{2}$$
 <!-- $$ D = D_1 \sqrt[3]{D_2 + D_3} - D_4 / (\sqrt[3]{D_2 + D_3}) $$ -->
 $$ y(x) = -\frac{x}{2} - \frac{s}{4A} + s + \frac{\sqrt{(2Ax^2 + sx - 4Asx)^2 + 8Axs^s}}{4Ax}$$
 
-This equation describes a curve whose shape depends on the amount of token ( $tok_1$ $tok_1$ and $tok_2$) in the pool and a parameter A.
+This equation describes a curve whose shape depends on the amount of token ( $tok_1$ and $tok_2$) in the pool and a parameter, A. An example of such a curve is shown in the figure below. The example is of a hypothetical pool with $4 \cdot 10^6 tok_1$, $16 \cdot 10^6 tok_2$ and A = 16.
 
 ![The curve](https://github.com/knasterk/Curve-depeg/blob/main/fig/single_curve.png "The curve and the virtual price")
 <!-- <img src="[https://github.com/knasterk/Curve-depeg/blob/main/fig/single_curve.png]" width="100" /> -->
