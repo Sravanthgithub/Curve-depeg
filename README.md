@@ -44,7 +44,7 @@ In the figure above, the red line indicates the border between peg ($0.95 \geq p
 
 ## Predicting depeg
 
-We want to predict depegs ($price_{tok_1} < 0.95$ or $price_{tok_1} > 1.05$) 24 hours in advance.
+We want to predict depegs ( $price_{tok_1} < 0.95$ or $price_{tok_1} > 1.05$) 24 hours in advance.
 
 ## Use
 Paths are relative to the working directory.
