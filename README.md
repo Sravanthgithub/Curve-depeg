@@ -46,6 +46,10 @@ In the figure above, the red line indicates the border between peg ( $0.95 \geq 
 
 We want to predict depegs ( $price_{x_1} < 0.95$ or $price_{x_1} > 1.05$) 24 hours in advance.
 
+![Predicting depegs](https://github.com/knasterk/Curve-depeg/blob/main/fig/depeg_predictions_thresh-1.0pct.png "Depeg predictions")
+
+![Performance](https://github.com/knasterk/Curve-depeg/blob/main/fig/depeg_confuse-error_thresh-1.0pct.png "Performance")
+
 ## Use
 Paths are relative to the working directory.
 
