@@ -68,7 +68,9 @@ We got the best results with a Gradient Boosting Classifier and a window length 
 
 ![Predicting depegs](https://github.com/knasterk/Curve-depeg/blob/main/fig/depeg_predictions_thresh-1.0pct.png "Depeg predictions")
 
-![Performance](https://github.com/knasterk/Curve-depeg/blob/main/fig/depeg_confuse-error_thresh-1.0pct.png "Performance")
+![Performance](https://github.com/knasterk/Curve-depeg/blob/main/fig/depeg_confuse_ROC_thresh-1.0pct.png "Performance")
+
+The results are surprisingly good and could be used to manage pools.
 
 ## Use
 Paths are relative to the working directory.
