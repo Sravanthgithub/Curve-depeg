@@ -41,7 +41,8 @@ def plot_results_confusion_matrix(Y_valid, Y_pred, Y_prob,
     fig.savefig(f'fig/depeg_confuse-error_thresh-{threshold}pct.png')
 
 
-def plot_predictions(Y_valid, Y_pred, Y_prob, threshold, learner, win):
+def plot_predictions(Y_valid, Y_pred, Y_prob,
+                     threshold, learner, win, pool_names=[]):
     """
     """
     y_valid_cat = np.concatenate(Y_valid)
@@ -83,11 +84,15 @@ def plot_predictions(Y_valid, Y_pred, Y_prob, threshold, learner, win):
         # ax.set_yticklabels([0, 0.5, 1])
         ax2.set_ylabel('Predicted $P_{depeg}$')
         ax2.set_ylim([-.1, 1.1])
+        try:
+            ax2.set_title(f'Pool: {pool_names[i]}')
+        except IndexError:
+            pass
 
     ax.legend()
     ax.set_xlabel('Time (days)')
-    fig.suptitle(f'$F_1$: {f1:1.3f}, accuracy: {acc:1.3f}\n'
-                 f'Depeg threshold: {threshold}%, learner: {learner}, lag: {win}')
+    fig.suptitle(f'$F_1$: {f1:1.3f}, accuracy: {acc:1.3f}, '
+                 f'depeg threshold: {threshold}%, learner: {learner}, lag: {win}')
     fig.savefig(f'fig/depeg_predictions_thresh-{threshold}pct.png')
 
 

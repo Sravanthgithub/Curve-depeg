@@ -37,35 +37,41 @@ def prepare_price(win=5, threshold=1., fill='ffill'):
 
     """
     prices = []
+    pool_names = []
 
     tmp = get_pool(pool_fname='data/pool/pool_curve_usdn_USDN-3CRV.csv',
                    A_fname='data/A/A_curve_usdn_USDN-3CRV.json',
                    tok0='USDN', tok1='3CRV')
     prices.append(tmp['price'].resample('24h').mean().fillna(method=fill))
+    pool_names.append('USDN-3CRV')
 
     tmp = get_pool(pool_fname='data/pool/pool_curve_degenbox_MIM-UST.csv',
                    A_fname='data/A/A_curve_degenbox_MIM-UST.json',
                    tok0='ust', tok1='mim')
     prices.append(tmp['price'].resample('24h').mean().fillna(method=fill))
+    pool_names.append('MIM-UST')
 
-    tmp = get_pool(pool_fname='data/pool/pool_curve_degenbox_MIM-UST.csv',
-                   A_fname='data/A/A_curve_degenbox_MIM-UST.json',
-                   tok0='ust', tok1='mim')
+    # tmp = get_pool(pool_fname='data/pool/pool_curve_degenbox_MIM-UST.csv',
+    #                A_fname='data/A/A_curve_degenbox_MIM-UST.json',
+    #                tok0='ust', tok1='mim')
 
     tmp = get_pool(pool_fname='data/pool/pool_curve_sETH-ETH.csv',
                    A_fname='data/A/A_curve_sETH-ETH.json',
                    tok0='steth_pool', tok1='eth_pool')
     prices.append(tmp['price'].resample('24h').mean().fillna(method=fill))
+    pool_names.append('sETH-ETH')
 
     tmp = get_pool(pool_fname='data/pool/pool_curve_pUSd_pUSd-3Crv.csv',
                    A_fname='data/A/A_curve_pUSd_pUSd-3Crv.json',
                    tok0='pusd', tok1='threecrv')
     prices.append(tmp['price'].resample('24h').mean().fillna(method=fill))
+    pool_names.append('pUSd-3Crv')
 
     tmp = get_pool(pool_fname='data/pool/pool_curve_wormhole-ust_UST-3Pool.csv',
                    A_fname='data/A/A_curve_wormhole-ust_UST-3Pool.json',
                    tok0='ust', tok1='three_pool')
     prices.append(tmp['price'].resample('24h').mean().fillna(method=fill))
+    pool_names.append('UST-3Pool')
     # ts6 = get_3pool(fname='Curve-3Pool_balance_DAI-USDC-USDT.csv')
 
     threshold = 1 + threshold / 100
@@ -84,7 +90,7 @@ def prepare_price(win=5, threshold=1., fill='ffill'):
         X.append(x)
         Y.append(y)
 
-    return X, Y
+    return X, Y, pool_names
 
 
 def get_pool(pool_fname='data/pool/pool_curve_usdn_USDN-3CRV.csv',

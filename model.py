@@ -25,7 +25,7 @@ def search_cls(min_f1=0.8, threshold=1.):
     results = []
     for win in wins:
         print(f'window length: {win}')
-        X, Y = prepare_price(win=win, threshold=threshold)
+        X, Y, _ = prepare_price(win=win, threshold=threshold)
 
         learners = {'logistic_regression': linear_model.LogisticRegression,
                     'naive_bayes': GaussianNB,
@@ -79,7 +79,7 @@ def fit_predict(threshold=1., plot=True):
     win = 3
     cv_ids = [0, 1, 4]
 
-    X, Y = prepare_price(win=win, threshold=threshold)
+    X, Y, pool_names = prepare_price(win=win, threshold=threshold)
 
     # cls = ensemble.RandomForestClassifier(n_estimators=n_estimators,
     #                                       criterion=criterion)
@@ -104,6 +104,7 @@ def fit_predict(threshold=1., plot=True):
     if plot:
         plot_results_confusion_matrix(Y_valid, Y_pred, Y_prob,
                                       threshold, learner, win)
-        plot_predictions(Y_valid, Y_pred, Y_prob, threshold, learner, win)
+        plot_predictions(Y_valid, Y_pred, Y_prob, threshold,
+                         learner, win, pool_names)
 
     return Y_valid, Y_pred, Y_prob
