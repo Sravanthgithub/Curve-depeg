@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from sklearn.metrics import confusion_matrix, f1_score
+from sklearn.metrics import confusion_matrix, f1_score, RocCurveDisplay
 from utils import get_virtualprice, get_y_curve, get_dy_curve
 # import pandas as pd
 # from datetime import datetime
@@ -14,13 +14,14 @@ def plot_results_confusion_matrix(Y_valid, Y_pred, Y_prob,
     """
     y_valid_cat = np.concatenate(Y_valid)
     y_pred_cat = np.concatenate(Y_pred)
+    y_prob_cat = np.concatenate(Y_prob)
     f1 = f1_score(y_valid_cat, y_pred_cat)
     acc = (y_valid_cat == y_pred_cat).mean()
 
     cm = confusion_matrix(y_valid_cat, y_pred_cat)
 
-    fig = plt.figure(figsize=(7*.8, 4.8*.8))
-    ax = fig.add_subplot(111)
+    fig = plt.figure(figsize=(14*.8, 4.8*.8))
+    ax = fig.add_subplot(121)
     im = ax.imshow(cm)
     for r in [0, 1]:
         for c in [0, 1]:
@@ -36,8 +37,22 @@ def plot_results_confusion_matrix(Y_valid, Y_pred, Y_prob,
     ax.set_yticks([0, 1])
     fig.colorbar(im)
     # plot_confusion_matrix(cls, X_valid, y_valid, ax=ax)
-    ax.set_title(f'$F_1$: {f1:1.3f}, accuracy: {acc:1.3f}\n'
-                 f'Depeg threshold: {threshold}% learner: {learner}, lag: {win}')
+    ax.set_title(f'$F_1$: {f1:1.3f}, accuracy: {acc:1.3f}')
+
+    ax = fig.add_subplot(122)
+    rd = RocCurveDisplay.from_predictions(y_valid_cat, y_prob_cat[:, 1], ax=ax)
+    # color = rd.line_.get_color()
+    ax.fill_between(rd.line_.get_xdata(), rd.line_.get_ydata(),
+                    color=rd.line_.get_color(), alpha=0.15)
+    ax.plot([0, 1], [0, 1], ':k')
+    ax.set_xlim([0, 1])
+    ax.set_ylim([0, 1])
+    ax.set_aspect('equal')
+    ax.set_title(f'ROC-curve $AUC$: {rd.roc_auc:1.3f}')
+    ax.get_legend().remove()
+
+    fig.suptitle(f'Depeg threshold: {threshold}% learner: {learner}, lag: {win}')
+
     fig.savefig(f'fig/depeg_confuse-error_thresh-{threshold}pct.png')
 
 
