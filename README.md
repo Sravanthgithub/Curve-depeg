@@ -47,7 +47,7 @@ In the figure above, the red line indicates the border between peg ( $0.95 \geq 
 We want to predict depegs ( $price_{x_1} < 0.95$ or $price_{x_1} > 1.05$) 24 hours in advance.
 
 ### Data
-We have data from five Curve.fi pools where depeg occurred (USDN-3CRV, MIM-UST, sETH-ETH, pUSd-3Crv, UST-3Pool). From each pool we have the number of tokens over variable number of days, from 77 (pUSd-3Crv) to 626 ((USDN-3CRV) days. We computed the virtual price from the pool data. We defined a depeg as a 1% deviation from a price of 1, perfect peg. Thresholding the price data gave us binary time series that we trained learners to predict future depegs (24 hours).
+We have data from five [Curve.fi](https://curve.fi) pools where depeg occurred ([USDN-3CRV](https://curve.fi/usdn), [MIM-UST](https://curve.fi/factory/48), [sETH-ETH](https://curve.fi/seth), [pUSd-3Crv](https://curve.fi/factory/113), [UST-3Pool](https://curve.fi/factory/53)). From each pool we have the number of tokens over variable number of days, from 77 (pUSd-3Crv) to 626 (USDN-3CRV) days. We computed the virtual price from the pool data. We defined a depeg as a 1% deviation from a price of 1, perfect peg. Thresholding the price data gave us binary time series that we trained learners to predict future depegs (24 hours).
 
 ### Modelling
 Learners were fitted three times on four of the five pools, each time with a different hold-out pool. We averaged the results across the three different runs and selected the learner and window length resulting in the highest $F_1$ score.
