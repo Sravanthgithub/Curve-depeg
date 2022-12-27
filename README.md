@@ -30,24 +30,24 @@ The equation describes a curve whose shape depends on the amount of token $(x_1$
 
 The virtual price is given by the negative of the tangent to the point $(x_1, y_1)$ on the curve. In the figure the tangent is shown by dashed lines.
 
-Changing the number of tokens and/or A changes the shape of the curve which in turn, influences the price. The figure below shows examples of this.
+Changing the number of tokens and/or $A$ changes the shape of the curve which in turn, influences the price. The figure below shows examples of this.
 
 ![Token ratio and A](https://github.com/knasterk/Curve-depeg/blob/main/fig/curves_A-tokRatio.png "The effect of token ratio and the A parameter")
 <!-- <img src="[https://github.com/knasterk/Curve-depeg/blob/main/fig/curves_A-tokRatio.png]" width="100" /> -->
 
-The more extreme the ratio of the two tokens become the more the price deviates from 1. This can be counteracted by increasing A, which leads to a greater range of ratios with a price close to 1, but sharper drop-offs at the end of this range. This is shown over a greater range of token ratios and values for A in the figure below.
+The more extreme the ratio of the two tokens become the more the price deviates from $1$. This can be counteracted by increasing $A$, which leads to a greater range of ratios with a price close to $1$, but sharper drop-offs at the end of this range. This is shown over a greater range of token ratios and values for A in the figure below.
 
 ![The region of stable price](https://github.com/knasterk/Curve-depeg/blob/main/fig/A-tokRatio_vprice.png "Higher A leads to a wider region of stable prices but a sharper drop-off")
 <!-- <img src="[https://github.com/knasterk/Curve-depeg/blob/main/fig/A-tokRatio_vprice.png]" width="200" /> -->
 
-In the figure above, the red line indicates the border between peg ( $0.95 \geq price_{x_1} \leq 1$) and depeg ( $price_{x_1}< 0.95$).
+In the figure above, the red line indicates the border between peg $(0.95 \geq price_{x_1} \leq 1)$ and depeg $(price_{x_1}< 0.95)$.
 
 ## Predicting depeg
 
-We want to predict depegs ( $price_{x_1} < 0.95$ or $price_{x_1} > 1.05$) 24 hours in advance.
+We want to predict depegs $(price_{x_1} < 0.95$ or $price_{x_1} > 1.05)$ 24 hours in advance.
 
 ### Data
-We have data from five [Curve.fi](https://curve.fi) pools where depeg occurred ([USDN-3CRV](https://curve.fi/usdn), [MIM-UST](https://curve.fi/factory/48), [sETH-ETH](https://curve.fi/seth), [pUSd-3Crv](https://curve.fi/factory/113), [UST-3Pool](https://curve.fi/factory/53)). From each pool we have the number of tokens over variable number of days, from 77 (pUSd-3Crv) to 626 (USDN-3CRV) days. We computed the virtual price from the pool data. We defined a depeg as a 1% deviation from a price of 1, perfect peg. Thresholding the price data gave us binary time series that we trained learners to predict future depegs (24 hours).
+We have data from five [Curve.fi](https://curve.fi) pools where depeg occurred ([USDN-3CRV](https://curve.fi/usdn), [MIM-UST](https://curve.fi/factory/48), [sETH-ETH](https://curve.fi/seth), [pUSd-3Crv](https://curve.fi/factory/113), [UST-3Pool](https://curve.fi/factory/53)). From each pool we have the number of tokens over variable number of days, from 77 (pUSd-3Crv) to 626 (USDN-3CRV) days. We computed the virtual price from the pool data. We defined a depeg as a 1% deviation from a price of $1$, perfect peg. Thresholding the price data gave us binary time series that we trained learners to predict future depegs (24 hours).
 
 ### Modelling
 Learners were fitted three times on four of the five pools, each time with a different hold-out pool. We averaged the results across the three different runs and selected the learner and window length resulting in the highest $F_1$ score.
