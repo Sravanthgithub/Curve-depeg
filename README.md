@@ -35,7 +35,7 @@ Changing the number of tokens and/or $A$ changes the shape of the curve which in
 ![Token ratio and A](https://github.com/knasterk/Curve-depeg/blob/main/fig/curves_A-tokRatio.png "The effect of token ratio and the A parameter")
 <!-- <img src="[https://github.com/knasterk/Curve-depeg/blob/main/fig/curves_A-tokRatio.png]" width="100" /> -->
 
-The more extreme the ratio of the two tokens become the more the price deviates from $1$. This can be counteracted by increasing $A$, which leads to a greater range of ratios with a price close to $1$, but sharper drop-offs at the end of this range. This is shown over a greater range of token ratios and values for A in the figure below.
+The more extreme the ratio of the two tokens become the more the price deviates from $1$. This can be counteracted by increasing $A$, which leads to a greater range of ratios with a price close to $1$, but sharper drop-offs at the end of this range. This is shown over a greater range of token ratios and values for $A$ in the figure below.
 
 ![The region of stable price](https://github.com/knasterk/Curve-depeg/blob/main/fig/A-tokRatio_vprice.png "Higher A leads to a wider region of stable prices but a sharper drop-off")
 <!-- <img src="[https://github.com/knasterk/Curve-depeg/blob/main/fig/A-tokRatio_vprice.png]" width="200" /> -->
