@@ -5,7 +5,7 @@ Predictive modelling of depegging on Cuve.fi.
 
 The price of token at the stableswap [Curve.fi](https://curve.fi/) is calculated by the the equation below.
 
-$$  A = \frac{A_{contract}}{2} $$ 
+$$  A = \frac{A_{contract}}{2} $$
 
 <!-- $$  D_1 = \frac{1}{3 \cdot \sqrt[3]{2}} $$ -->
 <!-- D_1 = 1 / (3 * 2 ** (1/3)) -->
@@ -23,7 +23,7 @@ $$ s = \frac{D}{2}$$
 <!-- $$ D = D_1 \sqrt[3]{D_2 + D_3} - D_4 / (\sqrt[3]{D_2 + D_3}) $$ -->
 $$ y(x) = -\frac{x}{2} - \frac{s}{4A} + s + \frac{\sqrt{(2Ax^2 + sx - 4Asx)^2 + 8Axs^s}}{4Ax}$$
 
-The equation describes a curve whose shape depends on the amount of token ( $x_1$ and $y_2$) in the pool and a parameter, A. An example of such a curve is shown in the figure below. The example is of a hypothetical pool with $4 \cdot 10^6$ of $tok_1$, $16 \cdot 10^6$ of $tok_2$ and A = 16.
+The equation describes a curve whose shape depends on the amount of token $(x_1$ and $y_1)$ in the pool and a parameter, $A$. An example of such a curve is shown in the figure below. The example is of a hypothetical pool with $4 \cdot 10^6$ of $tok_1$, $16 \cdot 10^6$ of $tok_2$ and $A = 16$.
 
 ![The curve](https://github.com/knasterk/Curve-depeg/blob/main/fig/single_curve.png "The curve and the virtual price")
 <!-- <img src="[https://github.com/knasterk/Curve-depeg/blob/main/fig/single_curve.png]" width="100" /> -->
@@ -61,7 +61,7 @@ We compared six different learners and 19 window lengths between 1 and 70 days.
  * Decision Tree Classifier
  * Random Forest Classifier
  * Gradient Boosting Classifier
- 
+
 ### Results
 
 We got the best results with a Gradient Boosting Classifier and a window length of three days.
